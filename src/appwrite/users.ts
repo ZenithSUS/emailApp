@@ -19,6 +19,7 @@ export async function createInfo(data: AddUser): Promise<Object | void> {
 export default async function getInfo(): Promise<Users[] | void> {
   try {
     const { documents } = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
+    console.log(documents);
     return documents as Users[];
   } catch (error) {
     console.error(error);
