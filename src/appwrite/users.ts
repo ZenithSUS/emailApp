@@ -1,7 +1,7 @@
 import { databases, ID, DATABASE_ID, COLLECTION_ID } from ".";
-import { Users } from "../libs/types";
+import { Users, AddUser } from "../libs/types";
 
-export async function createInfo(data: Users): Promise<Object | void> {
+export async function createInfo(data: AddUser): Promise<Object | void> {
   try {
     const response = await databases.createDocument(
       DATABASE_ID,
@@ -9,6 +9,7 @@ export async function createInfo(data: Users): Promise<Object | void> {
       ID.unique(),
       data
     );
+    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
@@ -17,8 +18,8 @@ export async function createInfo(data: Users): Promise<Object | void> {
 
 export default async function getInfo(): Promise<Users[] | void> {
   try {
-    const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
-    return response.documents as Users[];
+    const { documents } = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
+    return documents as Users[];
   } catch (error) {
     console.error(error);
   }
