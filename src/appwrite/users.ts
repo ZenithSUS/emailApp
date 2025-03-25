@@ -1,5 +1,5 @@
 import { databases, ID, DATABASE_ID, COLLECTION_ID } from ".";
-import { Users, AddUser } from "../libs/types";
+import {  AddUser } from "../libs/types";
 
 export async function createInfo(data: AddUser) {
   try {
@@ -14,11 +14,11 @@ export async function createInfo(data: AddUser) {
   }
 }
 
-export default async function getInfo(): Promise<Users[]> {
+export default async function getInfo() {
   try {
     const { documents } = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
     console.log(documents);
-    return documents as Users[];
+    return documents;
   } catch (error) {
     throw new Error(error as string);
   }

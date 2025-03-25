@@ -1,16 +1,16 @@
 import getInfo from "../appwrite/users";
 import { useState, useEffect } from "react";
-import { Users } from "../libs/types";
 import Title from "../utils/title";
+import { Models } from "appwrite";
 
 export default function DisplayInfo() {
-  const [info, setInfo] = useState<Users[]>([]);
+  const [info, setInfo] = useState<Models.Document[]>([]);
   const [loading, setLoading] = useState(true);
   Title("Display Info");
 
   useEffect(() => {
     getInfo().then((data) => {
-      setInfo(data || []);
+      setInfo(data);
       setLoading(false);
     });
   }, []);
@@ -55,11 +55,15 @@ export default function DisplayInfo() {
               <td className="py-3 px-6 border border-gray-300">
                 {item.fullName}
               </td>
-              <td className="py-3 px-6 border border-gray-300">Gender</td>
+              <td className="py-3 px-6 border border-gray-300">
+                {item.gender}
+              </td>
               <td className="py-3 px-6 border border-gray-300">
                 {item.address}
               </td>
-              <td className="py-3 px-6 border border-gray-300">{item.phone}</td>
+              <td className="py-3 px-6 border border-gray-300">
+                {item.phoneNumber}
+              </td>
               <td className="py-3 px-6 border border-gray-300">{item.email}</td>
             </tr>
           ))}

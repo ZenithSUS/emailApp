@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { createInfo } from "@/appwrite/users";
+import { useState, useTransition } from "react";
 
 type UserInformation = {
   fullName: string;
@@ -6,33 +7,55 @@ type UserInformation = {
   birthdate: string;
   phoneNumber: string;
   address: string;
+  gender: string; // Added gender field
 };
 
 export default function UpdateInfoPage() {
+  const [isPending, startTransition] = useTransition();
   const [userInformation, setUserInformation] = useState<UserInformation>({
     fullName: "",
     email: "",
     birthdate: "",
     phoneNumber: "",
     address: "",
+    gender: "", // Initialize gender
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
       userInformation.fullName === "" ||
       userInformation.email === "" ||
       userInformation.birthdate === "" ||
       userInformation.phoneNumber === "" ||
-      userInformation.address === ""
+      userInformation.address === "" ||
+      userInformation.gender === ""
     ) {
       alert("Please fill out all the fields");
       return;
     }
-    console.log(userInformation);
+
+    startTransition(async () => {
+      try {
+        await createInfo(userInformation);
+        setUserInformation({
+          fullName: "",
+          email: "",
+          birthdate: "",
+          phoneNumber: "",
+          address: "",
+          gender: "",
+        });
+        alert("User information updated successfully");
+      } catch (error) {
+        console.log(error);
+      }
+    });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setUserInformation({ ...userInformation, [name]: value });
   };
@@ -51,6 +74,7 @@ export default function UpdateInfoPage() {
               </label>
               <div className="grid grid-cols-[1fr_auto]">
                 <input
+                  disabled={isPending}
                   required
                   type="text"
                   name="fullName"
@@ -71,6 +95,7 @@ export default function UpdateInfoPage() {
               </label>
               <div className="grid grid-cols-[1fr_auto]">
                 <input
+                  disabled={isPending}
                   required
                   type="email"
                   name="email"
@@ -85,36 +110,40 @@ export default function UpdateInfoPage() {
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label htmlFor="birthdate" className="block">
-                Birthdate
-              </label>
-              <input
-                required
-                type="date"
-                name="birthdate"
-                id="birthdate"
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-l p-2"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label htmlFor="phoneNumber" className="block">
-                Phone Number
-              </label>
-              <div className="grid grid-cols-[1fr_auto]">
+            <div className="grid grid-cols-2 gap-5">
+              <div className="space-y-1">
+                <label htmlFor="birthdate" className="block">
+                  Birthdate
+                </label>
                 <input
+                  disabled={isPending}
                   required
-                  type="tel"
-                  name="phoneNumber"
-                  id="phoneNumber"
+                  type="date"
+                  name="birthdate"
+                  id="birthdate"
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-l p-2"
-                  placeholder="Enter phone number"
                 />
-                <div className="bg-neutral-200 border-l-0 border border-neutral-300 rounded-r flex items-center w-10 justify-center">
-                  <img src="./telephone.png" alt="" className="w-5" />
+              </div>
+
+              <div className="space-y-1">
+                <label htmlFor="phoneNumber" className="block">
+                  Phone Number
+                </label>
+                <div className="grid grid-cols-[1fr_auto]">
+                  <input
+                    disabled={isPending}
+                    required
+                    type="tel"
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-l p-2"
+                    placeholder="Enter phone number"
+                  />
+                  <div className="bg-neutral-200 border-l-0 border border-neutral-300 rounded-r flex items-center w-10 justify-center">
+                    <img src="./telephone.png" alt="" className="w-5" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -125,6 +154,7 @@ export default function UpdateInfoPage() {
               </label>
               <div className="grid grid-cols-[1fr_auto]">
                 <input
+                  disabled={isPending}
                   required
                   type="text"
                   name="address"
@@ -139,11 +169,34 @@ export default function UpdateInfoPage() {
               </div>
             </div>
 
+            <div className="space-y-1">
+              <label htmlFor="gender" className="block">
+                Gender
+              </label>
+              <select
+                disabled={isPending}
+                required
+                name="gender"
+                id="gender"
+                onChange={handleChange}
+                value={userInformation.gender} // Bind value to state
+                className="w-full border border-gray-300 rounded p-2"
+              >
+                <option value="" disabled>
+                  Select gender
+                </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
             <div className="flex items-center justify-between">
               <img src="./logo.png" alt="" className="w-12" />
               <button
                 type="submit"
                 className="bg-blue-500 text-white rounded p-2 hover:scale-105 transform transition-transform cursor-pointer"
+                disabled={isPending}
               >
                 Update Info
               </button>
