@@ -3,6 +3,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "Arial Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Arial Regular"), url("./fonts/ARIAL.woff") format("woff");
+}
+
+html {
+  font-family: "Arial Regular", sans-serif;
+}
+
 .bg {
   background-image: url("./bg.png");
   background-repeat: no-repeat;

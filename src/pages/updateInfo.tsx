@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type UserInformation = {
   fullName: string;
@@ -9,7 +9,6 @@ type UserInformation = {
 };
 
 export default function UpdateInfoPage() {
-  const [userIP, setUserIP] = useState<string>("");
   const [userInformation, setUserInformation] = useState<UserInformation>({
     fullName: "",
     email: "",
@@ -17,12 +16,6 @@ export default function UpdateInfoPage() {
     phoneNumber: "",
     address: "",
   });
-
-  useEffect(() => {
-    fetch("https://api.ipify.org?format=json")
-      .then((response) => response.json())
-      .then((data) => setUserIP(data.ip));
-  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,7 +41,7 @@ export default function UpdateInfoPage() {
     <main className="grid min-h-screen place-items-center bg">
       <div className="space-y-5">
         <h1 className="font-bold text-center text-3xl text-shadow z-50">
-          SKPI Employee Update {userIP}
+          SKPI Employee Update
         </h1>
         <div className="bg-white w-xl text-black p-5 rounded-md space-y-10 border-t-[3.5px] border-blue-500">
           <form onSubmit={onSubmit} className="space-y-5">
