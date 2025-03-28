@@ -50,19 +50,19 @@ export default function UpdateInfoPage() {
     startTransition(async () => {
       try {
         await createInfo(userInformation);
-        setUserInformation({
-          fullName: "",
-          email: "",
-          birthdate: "",
-          phoneNumber: "",
-          address: "",
-          gender: "",
-        });
 
         alert("User information updated successfully");
       } catch (error) {
         console.log(error);
       }
+      setUserInformation({
+        fullName: "",
+        email: "",
+        birthdate: "",
+        phoneNumber: "",
+        address: "",
+        gender: "",
+      });
     });
   };
 
@@ -93,7 +93,8 @@ export default function UpdateInfoPage() {
                   name="fullName"
                   id="fullName"
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-l p-2 flex-1"
+                  value={userInformation.fullName}
+                  className="w-full border border-gray-300 rounded-l p-2 disabled:opacity-50 flex-1"
                   placeholder="Enter full name"
                 />
                 <div className="bg-neutral-200 border-l-0 border border-neutral-300 rounded-r flex items-center w-10 justify-center">
@@ -114,7 +115,8 @@ export default function UpdateInfoPage() {
                   name="email"
                   id="email"
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-l p-2"
+                  value={userInformation.email}
+                  className="w-full border border-gray-300 rounded-l p-2 disabled:opacity-50"
                   placeholder="Enter email address"
                 />
                 <div className="bg-neutral-200 border-l-0 border border-neutral-300 rounded-r flex items-center w-10 justify-center">
@@ -135,7 +137,8 @@ export default function UpdateInfoPage() {
                   name="birthdate"
                   id="birthdate"
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-l p-2"
+                  value={userInformation.birthdate}
+                  className="w-full border border-gray-300 rounded-l p-2 disabled:opacity-50"
                 />
               </div>
 
@@ -151,7 +154,8 @@ export default function UpdateInfoPage() {
                     name="phoneNumber"
                     id="phoneNumber"
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-l p-2"
+                    value={userInformation.phoneNumber}
+                    className="w-full border border-gray-300 rounded-l p-2 disabled:opacity-50"
                     placeholder="Enter phone number"
                   />
                   <div className="bg-neutral-200 border-l-0 border border-neutral-300 rounded-r flex items-center w-10 justify-center">
@@ -173,7 +177,8 @@ export default function UpdateInfoPage() {
                   name="address"
                   id="address"
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-l p-2"
+                  value={userInformation.address}
+                  className="w-full border border-gray-300 rounded-l p-2 disabled:opacity-50"
                   placeholder="Enter address"
                 />
                 <div className="bg-neutral-200 border-l-0 border border-neutral-300 rounded-r flex items-center w-10 justify-center">
@@ -192,8 +197,8 @@ export default function UpdateInfoPage() {
                 name="gender"
                 id="gender"
                 onChange={handleChange}
-                value={userInformation.gender} // Bind value to state
-                className="w-full border border-gray-300 rounded p-2"
+                value={userInformation.gender}
+                className="w-full border border-gray-300 rounded p-2 disabled:opacity-50"
               >
                 <option value="" disabled>
                   Select gender
@@ -208,10 +213,10 @@ export default function UpdateInfoPage() {
               <img src="./logo.png" alt="" className="w-12 rotate-y-180" />
               <button
                 type="submit"
-                className="bg-blue-500 text-white rounded p-2 hover:scale-105 transform transition-transform cursor-pointer"
+                className="bg-blue-500 text-white rounded p-2 hover:scale-105 transform transition-transform cursor-pointer disabled:opacity-50"
                 disabled={isPending}
               >
-                Update Info
+                {isPending ? "Loading..." : "Update info"}
               </button>
             </div>
           </form>
