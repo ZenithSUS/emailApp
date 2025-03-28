@@ -4,6 +4,8 @@ export type Users = {
   email: string;
   phoneNumber: string;
   address: string;
+  birthdate: string;
+  gender: string;
 };
 
 export type AddUser = Omit<Users, "$id">;
