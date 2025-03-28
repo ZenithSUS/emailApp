@@ -46,7 +46,7 @@ export default function UpdateInfoPage() {
           address: "",
           gender: "",
         });
-        
+
         alert("User information updated successfully");
       } catch (error) {
         console.log(error);
@@ -62,7 +62,7 @@ export default function UpdateInfoPage() {
   };
 
   return (
-    <main className="grid min-h-screen place-items-center bg">
+    <main className="grid min-h-screen place-items-center">
       <div className="space-y-5">
         <h1 className="font-bold text-center text-3xl text-shadow z-50">
           SKPI Employee Update

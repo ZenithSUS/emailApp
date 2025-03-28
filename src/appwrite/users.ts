@@ -1,5 +1,5 @@
 import { databases, ID, DATABASE_ID, COLLECTION_ID } from ".";
-import {  AddUser } from "../libs/types";
+import { AddUser } from "../libs/types";
 
 export async function createInfo(data: AddUser) {
   try {
@@ -16,7 +16,10 @@ export async function createInfo(data: AddUser) {
 
 export default async function getInfo() {
   try {
-    const { documents } = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
+    const { documents } = await databases.listDocuments(
+      DATABASE_ID,
+      COLLECTION_ID
+    );
     console.log(documents);
     return documents;
   } catch (error) {
