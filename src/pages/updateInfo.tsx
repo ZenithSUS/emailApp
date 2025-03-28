@@ -46,6 +46,7 @@ export default function UpdateInfoPage() {
           address: "",
           gender: "",
         });
+        
         alert("User information updated successfully");
       } catch (error) {
         console.log(error);
@@ -192,7 +193,7 @@ export default function UpdateInfoPage() {
             </div>
 
             <div className="flex items-center justify-between">
-              <img src="./logo.png" alt="" className="w-12" />
+              <img src="./logo.png" alt="" className="w-12 rotate-y-180" />
               <button
                 type="submit"
                 className="bg-blue-500 text-white rounded p-2 hover:scale-105 transform transition-transform cursor-pointer"
