@@ -1,5 +1,6 @@
 import { createInfo } from "@/appwrite/users";
 import { useState, useTransition } from "react";
+// import CryptoJS from "crypto-js";
 
 type UserInformation = {
   fullName: string;
@@ -7,8 +8,19 @@ type UserInformation = {
   birthdate: string;
   phoneNumber: string;
   address: string;
-  gender: string; // Added gender field
+  gender: string;
 };
+
+// const secretKey = "mySecretKey123";
+
+// function encrypt(text: string) {
+//   return CryptoJS.AES.encrypt(text, secretKey).toString();
+// }
+
+// function decrypt(cipherText: string) {
+//   const bytes = CryptoJS.AES.decrypt(decodeURIComponent(cipherText), secretKey);
+//   return bytes.toString(CryptoJS.enc.Utf8);
+// }
 
 export default function UpdateInfoPage() {
   const [isPending, startTransition] = useTransition();
@@ -18,7 +30,7 @@ export default function UpdateInfoPage() {
     birthdate: "",
     phoneNumber: "",
     address: "",
-    gender: "", // Initialize gender
+    gender: "",
   });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

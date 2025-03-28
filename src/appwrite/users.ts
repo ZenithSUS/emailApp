@@ -1,5 +1,5 @@
 import { databases, ID, DATABASE_ID, COLLECTION_ID } from ".";
-import { AddUser } from "../libs/types";
+import { AddUser } from "../lib/types";
 
 export async function createInfo(data: AddUser) {
   try {
