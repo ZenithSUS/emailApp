@@ -100,7 +100,7 @@ export default function DisplayInfo() {
                 key={item.$id}
                 className="bg-gray-100 p-4 mb-2 rounded shadow-md text-gray-700"
               >
-                {decrypt(item.email)}
+                {decrypt(item.email.replace(/ /g, "+"))}
               </li>
             );
           })}
