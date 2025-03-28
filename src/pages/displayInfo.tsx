@@ -93,18 +93,25 @@ export default function DisplayInfo() {
         <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">
           User who visited the website
         </h1>
-        <ul>
-          {emails.map((item) => {
-            return (
-              <li
+        <table className="table-auto w-full border-collapse border border-gray-300 bg-white shadow-md">
+          <thead>
+            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal ftext-center">
+              <th className="py-3 px-6 border border-gray-300">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {emails.map((item) => (
+              <tr
                 key={item.$id}
-                className="bg-gray-100 p-4 mb-2 rounded shadow-md text-gray-700"
+                className="hover:bg-gray-100 text-gray-700 text-center"
               >
-                {decrypt(item.email.replace(/ /g, "+"))}
-              </li>
-            );
-          })}
-        </ul>
+                <td className="py-3 px-6 border border-gray-300">
+                  {decrypt(item.email.replace(/ /g, "+"))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
