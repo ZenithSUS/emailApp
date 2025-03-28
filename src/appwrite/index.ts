@@ -10,4 +10,7 @@ export const databases = new Databases(client);
 export { ID } from "appwrite";
 
 export const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
-export const COLLECTION_ID = import.meta.env.VITE_APPWRITE_USER_COLLECTION_ID;
+export const USER_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_USER_COLLECTION_ID;
+export const EMAILS_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_EMAILS_COLLECTION_ID;

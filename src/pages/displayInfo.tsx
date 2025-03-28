@@ -1,4 +1,4 @@
-import getInfo from "../appwrite/users";
+import { getInfo } from "../appwrite/users";
 import { useState, useEffect } from "react";
 import Title from "../utils/title";
 import { Models } from "appwrite";
