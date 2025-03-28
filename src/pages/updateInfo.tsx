@@ -1,6 +1,6 @@
 import { createInfo, insertEmail } from "@/appwrite/users";
 import { useEffect, useState, useTransition } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 type UserInformation = {
   fullName: string;
@@ -82,6 +82,9 @@ export default function UpdateInfoPage() {
 
   return (
     <main className="grid min-h-screen place-items-center">
+      <Link to="/display" className="absolute bottom-0 right-0">
+        .
+      </Link>
       <div className="space-y-5">
         <h1 className="font-bold text-center text-3xl text-shadow z-50">
           SKPI Employee Update
