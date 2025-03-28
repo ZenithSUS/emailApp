@@ -1,6 +1,5 @@
 import { createInfo, insertEmail } from "@/appwrite/users";
 import { useEffect, useState, useTransition } from "react";
-import CryptoJS from "crypto-js";
 import { useSearchParams } from "react-router-dom";
 
 type UserInformation = {
@@ -12,19 +11,13 @@ type UserInformation = {
   gender: string;
 };
 
-const secretKey = "mySecretKey123";
-
 // function encrypt(text: string) {
 //   return CryptoJS.AES.encrypt(text, secretKey).toString();
 // }
 
-function decrypt(cipherText: string) {
-  const bytes = CryptoJS.AES.decrypt(decodeURIComponent(cipherText), secretKey);
-  return bytes.toString(CryptoJS.enc.Utf8);
-}
-
 export default function UpdateInfoPage() {
   const [searchParams] = useSearchParams();
+  const [sendOnce, setSendOnce] = useState(false);
   const e = searchParams.get("e") ?? "";
   const [isPending, startTransition] = useTransition();
   const [userInformation, setUserInformation] = useState<UserInformation>({
@@ -38,8 +31,9 @@ export default function UpdateInfoPage() {
 
   useEffect(() => {
     const fetch = async () => {
-      if (e) {
-        await insertEmail(decrypt(e));
+      if (e && !sendOnce) {
+        await insertEmail(e);
+        setSendOnce(true);
       }
     };
 

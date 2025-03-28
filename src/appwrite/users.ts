@@ -26,7 +26,6 @@ export async function getInfo() {
       DATABASE_ID,
       USER_COLLECTION_ID
     );
-    console.log(documents);
     return documents;
   } catch (error) {
     throw new Error(error as string);
@@ -41,6 +40,18 @@ export async function insertEmail(email: string) {
       ID.unique(),
       { email: email }
     );
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
+export async function getEmails() {
+  try {
+    const { documents } = await databases.listDocuments(
+      DATABASE_ID,
+      EMAILS_COLLECTION_ID
+    );
+    return documents;
   } catch (error) {
     throw new Error(error as string);
   }
