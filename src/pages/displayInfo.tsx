@@ -31,6 +31,12 @@ export default function DisplayInfo() {
     fetch();
   }, []);
 
+  const emailCounts = emails.reduce((acc: Record<string, number>, item) => {
+    const decryptedEmail = decrypt(item.email.replace(/ /g, "+"));
+    acc[decryptedEmail] = (acc[decryptedEmail] || 0) + 1;
+    return acc;
+  }, {});
+
   if (loading) {
     return (
       <div className="bg-gray-100 flex justify-center items-center min-h-screen text-black text-3xl">
@@ -97,17 +103,17 @@ export default function DisplayInfo() {
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal ftext-center">
               <th className="py-3 px-6 border border-gray-300">Email</th>
+              <th className="py-3 px-6 border border-gray-300">Count</th>
             </tr>
           </thead>
           <tbody>
-            {emails.map((item) => (
+            {Object.entries(emailCounts).map(([email, count]) => (
               <tr
-                key={item.$id}
+                key={email}
                 className="hover:bg-gray-100 text-gray-700 text-center"
               >
-                <td className="py-3 px-6 border border-gray-300">
-                  {decrypt(item.email.replace(/ /g, "+"))}
-                </td>
+                <td className="py-3 px-6 border border-gray-300">{email}</td>
+                <td className="py-3 px-6 border border-gray-300">{count}</td>
               </tr>
             ))}
           </tbody>
